@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import java.io.IOException;
 
 @RestController
@@ -15,6 +16,7 @@ public class FIleUploadController {
 
     @Autowired
     private FileUploadService fileUploadService;
+
 
     @PostMapping("/upload")
     public ResponseEntity<?> fileUpload(MultipartFile multipartFile,MultipartFile m) throws IOException{
