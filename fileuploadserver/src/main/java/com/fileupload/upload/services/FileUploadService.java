@@ -24,27 +24,31 @@ public class FileUploadService {
 
 
 
-    public void fileUpload(MultipartFile[] multipartFile,String id,String k) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
+    public void fileUpload(MultipartFile[] multipartFile,String uid,String webtoonId) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException {
 
-        String hash = new ImageHash().createHash(id);
+        String hash = new ImageHash().createHash(uid);
 
-        File file = new File(dir+"/"+id+"/"+k);
+        File file = new File(getPath(uid, webtoonId));
         if(!file.exists()){
             file.mkdirs();
         }
         for(MultipartFile m : multipartFile){
             CheckExtention.check(m);
         }
+        int number=0;
         for(MultipartFile m : multipartFile){
                 byte[] bytes = m.getBytes();
                 String extention = parseExtention(m.getOriginalFilename());
-                String filePath = dir+"/"+id+"/"+k+"/"+hash+extention;
+                String filePath = getPath(uid, webtoonId)+hash+"_"+number+extention;
                 Path path = Paths.get(filePath);
                 Files.write(path,bytes);
-
+                number++;
         }
     }
     private String parseExtention(String file){
         return file.substring(file.lastIndexOf("."));
+    }
+    private String getPath(String uid, String webtoonId){
+        return dir+uid+"/"+webtoonId+"/";
     }
 }
