@@ -7,9 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
+
+@CrossOrigin
 @RestController
 @RequestMapping("file")
 public class FIleUploadController {
@@ -19,8 +22,11 @@ public class FIleUploadController {
 
 
     @PostMapping("/upload")
-    public ResponseEntity<?> fileUpload(MultipartFile multipartFile,MultipartFile m) throws IOException{
-        fileUploadService.fileUpload(new MultipartFile[]{multipartFile,m});
+    public ResponseEntity<?> fileUpload(
+            @RequestParam(name = "files") MultipartFile[] multipartFile,@RequestParam(name = "userId") String uid,
+            @RequestParam(name = "webtoonId") String webtoonId) throws IOException,NoSuchAlgorithmException,InvalidKeySpecException {
+
+        fileUploadService.fileUpload(multipartFile,uid,webtoonId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
