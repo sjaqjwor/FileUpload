@@ -17,6 +17,7 @@ public class CheckExtention {
         Tika t = new Tika();
 
         String mimeType= t.detect(multipartFile.getInputStream());
+        System.err.println(mimeType);
         
         if(!mimeType.split("/")[1].equals("jpeg")) throw new FileExtentionException();
     }

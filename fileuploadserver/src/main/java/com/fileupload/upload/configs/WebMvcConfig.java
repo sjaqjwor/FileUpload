@@ -13,10 +13,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        System.err.println(dir);
-        System.err.println(System.getProperty("user.home"));
         registry.addResourceHandler("/upload/**")
                 .addResourceLocations("file:///"+dir);
 
     }
+
 }
