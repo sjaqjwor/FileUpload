@@ -1,0 +1,1 @@
+export const fileupload="http://localhost:8080/v1/file/upload";
